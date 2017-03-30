@@ -3,10 +3,10 @@ import chardet
 
 
 def code_detecter(filename):
-    with open(filename) as codefile:
-        data = codefile.readlines()
+    with open(filename, 'rb') as codefile:
+        data = codefile.read()
     
-    return chardet.detect(''.join(data))['encoding']
+    return chardet.detect(data)['encoding']
 
 def ten_words_from_news(country_news):
 
@@ -27,7 +27,7 @@ def ten_words_from_news(country_news):
     
                 for letter in word:
     
-                    if letter not in 'QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm':
+                    if letter in '<>/.,' :
     
                         f = False
     
@@ -43,9 +43,10 @@ def ten_words_from_news(country_news):
     
     Words = sorted(Words.items(), key=lambda x:x[1], reverse = True)
     
+    
     for top_word in Words[:10]:
     
-        print(top_word[0])
+        print(top_word[0], top_word[1])
 
 country = input('Введите страну, топ слов из новостей которой вам нужен:')
 
